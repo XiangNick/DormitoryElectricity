@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 自定义宿舍查询 -->
+<mapper namespace="com.xiangnick.dormitory.mapper.DorimitoryMapperCustomer">
+
+	<select id="findDorimitoryByStudent" parameterType="Integer" resultType="dorimitory">
+		SELECT DISTINCT d.* FROM dorimitory d , student s 
+		<where>
+			 d.dormitory_id = s.dormitory_id AND s.id = #{id};  
+		</where>
+	</select>
+	<select id="findAllDorimitory" resultType="dorimitory">
+		SELECT * FROM dorimitory d WHERE d.ridgepole != 0;
+	</select>
+	<select id="getRidgepoleCount" resultType="Integer">
+		SELECT COUNT(*) FROM (SELECT DISTINCT dormitory_id FROM dorimitory GROUP BY ridgepole) temp;
+	</select>
+	<select id="getRidgepole" resultType="Integer">
+		SELECT DISTINCT ridgepole FROM dorimitory;
+	</select>
+</mapper>

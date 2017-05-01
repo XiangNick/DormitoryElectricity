@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangnick.dormitory.mapper.DorimitoryMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangnick.dormitory.po.Dorimitory" >
+    <id column="dormitory_id" property="dormitoryId" jdbcType="VARCHAR" />
+    <result column="ridgepole" property="ridgepole" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dormitory_id, ridgepole
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dorimitory
+    where dormitory_id = #{dormitoryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dorimitory
+    where dormitory_id = #{dormitoryId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xiangnick.dormitory.po.Dorimitory" >
+    insert into dorimitory (dormitory_id, ridgepole)
+    values (#{dormitoryId,jdbcType=VARCHAR}, #{ridgepole,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangnick.dormitory.po.Dorimitory" >
+    insert into dorimitory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dormitoryId != null" >
+        dormitory_id,
+      </if>
+      <if test="ridgepole != null" >
+        ridgepole,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dormitoryId != null" >
+        #{dormitoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="ridgepole != null" >
+        #{ridgepole,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangnick.dormitory.po.Dorimitory" >
+    update dorimitory
+    <set >
+      <if test="ridgepole != null" >
+        ridgepole = #{ridgepole,jdbcType=INTEGER},
+      </if>
+    </set>
+    where dormitory_id = #{dormitoryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangnick.dormitory.po.Dorimitory" >
+    update dorimitory
+    set ridgepole = #{ridgepole,jdbcType=INTEGER}
+    where dormitory_id = #{dormitoryId,jdbcType=VARCHAR}
+  </update>
+</mapper>

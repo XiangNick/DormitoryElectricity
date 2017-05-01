@@ -1,0 +1,86 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+	<!-- 组件扫描 -->
+	<context:component-scan base-package="com.xiangnick.dormitory.controller" />
+	<!-- 自动装配注解适配器和映射器Adapter、Mapping的bean -->
+	<mvc:annotation-driven  conversion-service="conversionService" validator="validator">
+		<mvc:message-converters register-defaults="true">    
+        <!--json处理-->    
+        <bean    
+            class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">    
+            <property name="supportedMediaTypes">    
+                <list>    
+                    <value>application/json;charset=UTF-8</value>    
+                    <value>text/html;charset=UTF-8</value>    
+                </list>    
+            </property>    
+        </bean>    
+    </mvc:message-converters>  
+	
+	
+	</mvc:annotation-driven>
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.xiangnick.dormitory.controller.converter.CustomerDateConverter" />
+				<bean
+					class="com.xiangnick.dormitory.controller.converter.CustomerDetailConverter" />
+			</list>
+		</property>
+
+	</bean>
+	<!--
+	<mvc:resources location="/assets/css/" mapping="/assets/css/**"/>
+	<mvc:resources location="/assets/avatars/" mapping="/assets/avatars/**"/>
+	<mvc:resources location="/assets/js/" mapping="/assets/js/**"/>
+	<mvc:resources location="/assets/font/" mapping="/assets/font/**"/>
+	<mvc:resources location="/assets/images/" mapping="/assets/images/**"/>
+	-->
+	<!-- 视图映射器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 定义校验器 -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<!-- 校验器 -->
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<!-- 指定校验使用的资源文件，如果不指定则默认使用classpath下的ValidationMessages.properties--> 
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<!-- 资源文件名 -->
+		<property name="basenames">
+			<list>
+				<value>classpath:CustomerValidationMessages</value>
+			</list>
+		</property>
+		<!-- 资源文件编码格式 -->
+		<property name="fileEncodings" value="utf-8"/>
+		<!-- 对资源文件内容缓存时间，秒 -->
+		<property name="cacheSeconds" value="120"/>
+	</bean>
+	<!-- 配置multipart解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize">
+			<!-- 设置最大为5mb -->
+			<value>5242880</value>
+		</property>
+	
+	</bean>
+</beans>

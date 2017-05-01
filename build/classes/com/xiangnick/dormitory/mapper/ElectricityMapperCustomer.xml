@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 自定义电量查询 -->
+<mapper namespace="com.xiangnick.dormitory.mapper.ElectricityMapperCustomer">
+
+	<select id="findElectricityByDorimitoryId" parameterType="Integer" resultType="electricity">
+		SELECT * FROM electricity   
+		<where>
+			 dormitory_id = #{id} ORDER BY timeDate DESC; 
+		</where>
+	</select>
+
+	<select id="findEleCountByDormitoryIdAndTime" parameterType="electricity" resultType="int">
+		SELECT COUNT(eId) FROM electricity    
+		<where>
+			  dormitory_id = #{dormitory_id} AND timeDate = #{timedate} ;
+		</where>
+	</select>
+	
+	<update id="addElectricityByDidAndTimeDate" parameterType="QueryElectricityVo">
+	UPDATE electricity SET electricity = electricity + #{powerNum}
+	<where>
+		timeDate = #{electricity.timedate} AND dormitory_id = #{electricity.dormitory_id};
+	</where> 
+	</update>
+</mapper>

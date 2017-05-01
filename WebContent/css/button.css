@@ -1,0 +1,41 @@
+.btnList {
+  margin: 0 auto;
+  text-align: center;
+}
+.btnList button {
+  margin: 30px;
+}
+.banner .banner_a {
+  height: 450px;
+  display: block;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.banner .banner_a.img_a {
+  background-image: url("../img/dog1.jpg");
+}
+.banner .banner_a.img_b {
+  background-image: url("../img/dog2.jpg");
+}
+.banner .banner_a.img_c {
+  background-image: url("../img/cat1.jpg");
+}
+.banner .banner_a.img_d {
+  background-image: url("../img/cat2.jpg");
+}
+.banner .mobie_a {
+  display: block;
+  width: 100%;
+}
+.banner .mobie_a img {
+  display: block;
+  width: 100%;
+}
+.status{
+	margin-left: 15px;
+	color:#bbb;
+	font:700 18px 'Microsoft YaHei';
+}
+.message{
+	visibility:hidden;
+}

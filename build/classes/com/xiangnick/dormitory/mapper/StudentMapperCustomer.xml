@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 自定义学生查询 -->
+<mapper namespace="com.xiangnick.dormitory.mapper.StudentMapperCustomer">
+
+	<select id="findStudentByIdAndPassword" parameterType="queryStudentVo" resultType="student">
+		SELECT * FROM student 
+		<where>
+		  id = #{student.id} and password = #{student.password}
+		</where>
+	</select>
+</mapper>

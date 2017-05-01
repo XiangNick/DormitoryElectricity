@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiangnick.dormitory.mapper.ElectricityMapper" >
+  <resultMap id="BaseResultMap" type="com.xiangnick.dormitory.po.Electricity" >
+    <id column="eId" property="eid" jdbcType="INTEGER" />
+    <result column="ele_price" property="elePrice" jdbcType="DOUBLE" />
+    <result column="pre_deposit" property="preDeposit" jdbcType="DOUBLE" />
+    <result column="overage" property="overage" jdbcType="DOUBLE" />
+    <result column="electricity" property="electricity" jdbcType="REAL" />
+    <result column="timeDate" property="timedate" jdbcType="DATE" />
+    <result column="dormitory_id" property="dormitoryId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    eId, ele_price, pre_deposit, overage, electricity, timeDate, dormitory_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from electricity
+    where eId = #{eid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from electricity
+    where eId = #{eid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xiangnick.dormitory.po.Electricity" >
+    insert into electricity (eId, ele_price, pre_deposit, 
+      overage, electricity, timeDate, 
+      dormitory_id)
+    values (#{eid,jdbcType=INTEGER}, #{elePrice,jdbcType=DOUBLE}, #{preDeposit,jdbcType=DOUBLE}, 
+      #{overage,jdbcType=DOUBLE}, #{electricity,jdbcType=REAL}, #{timedate,jdbcType=DATE}, 
+      #{dormitoryId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiangnick.dormitory.po.Electricity" >
+    insert into electricity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        eId,
+      </if>
+      <if test="elePrice != null" >
+        ele_price,
+      </if>
+      <if test="preDeposit != null" >
+        pre_deposit,
+      </if>
+      <if test="overage != null" >
+        overage,
+      </if>
+      <if test="electricity != null" >
+        electricity,
+      </if>
+      <if test="timedate != null" >
+        timeDate,
+      </if>
+      <if test="dormitoryId != null" >
+        dormitory_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eid != null" >
+        #{eid,jdbcType=INTEGER},
+      </if>
+      <if test="elePrice != null" >
+        #{elePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="preDeposit != null" >
+        #{preDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="overage != null" >
+        #{overage,jdbcType=DOUBLE},
+      </if>
+      <if test="electricity != null" >
+        #{electricity,jdbcType=REAL},
+      </if>
+      <if test="timedate != null" >
+        #{timedate,jdbcType=DATE},
+      </if>
+      <if test="dormitoryId != null" >
+        #{dormitoryId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiangnick.dormitory.po.Electricity" >
+    update electricity
+    <set >
+      <if test="elePrice != null" >
+        ele_price = #{elePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="preDeposit != null" >
+        pre_deposit = #{preDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="overage != null" >
+        overage = #{overage,jdbcType=DOUBLE},
+      </if>
+      <if test="electricity != null" >
+        electricity = #{electricity,jdbcType=REAL},
+      </if>
+      <if test="timedate != null" >
+        timeDate = #{timedate,jdbcType=DATE},
+      </if>
+      <if test="dormitoryId != null" >
+        dormitory_id = #{dormitoryId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where eId = #{eid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiangnick.dormitory.po.Electricity" >
+    update electricity
+    set ele_price = #{elePrice,jdbcType=DOUBLE},
+      pre_deposit = #{preDeposit,jdbcType=DOUBLE},
+      overage = #{overage,jdbcType=DOUBLE},
+      electricity = #{electricity,jdbcType=REAL},
+      timeDate = #{timedate,jdbcType=DATE},
+      dormitory_id = #{dormitoryId,jdbcType=VARCHAR}
+    where eId = #{eid,jdbcType=INTEGER}
+  </update>
+</mapper>
